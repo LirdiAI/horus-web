@@ -23,10 +23,41 @@
         .nav-auth button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; font-size: 0.85rem; padding: 8px 16px; border-radius: 12px; transition: 0.2s; }
         .nav-auth button:hover { background: rgba(255, 255, 255, 0.2); }
         
+        /* Главный экран */
         .hero { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; width: 100%; animation: floatUp 0.6s ease-out; }
         .hero-logo-big { font-size: 4rem; color: #5a9cff; margin-bottom: 25px; font-style: italic; font-family: serif; }
         .hero h1 { font-size: 3.2rem; margin-bottom: 20px; font-weight: 600; }
         
+        /* Экран Авторизации (Login) */
+        .auth-section { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; width: 100%; max-width: 450px; padding: 40px 20px; animation: floatUp 0.6s ease-out; }
+        .auth-logo { font-size: 3rem; color: #5a9cff; margin-bottom: 15px; font-style: italic; font-family: serif; }
+        .auth-title { font-size: 2.2rem; font-weight: 600; margin-bottom: 10px; }
+        .auth-subtitle { color: #aaa; font-size: 0.9rem; line-height: 1.5; margin-bottom: 30px; }
+        
+        .auth-form { width: 100%; display: flex; flex-direction: column; gap: 15px; }
+        .input-group { position: relative; width: 100%; }
+        .input-group i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #888; font-size: 1rem; }
+        .auth-input { width: 100%; padding: 16px 16px 16px 50px; background: rgba(20, 25, 35, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 14px; outline: none; font-size: 0.95rem; transition: 0.2s; }
+        .auth-input:focus { border-color: #5a9cff; }
+        
+        /* Элемент Cloudflare капчи */
+        .cloudflare-box { width: 100%; background: rgba(255, 255, 255, 0.95); border-radius: 12px; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; color: #333; }
+        .cf-left { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 500; }
+        .cf-spinner { width: 20px; height: 20px; border: 3px solid #ccc; border-top-color: #2e7d32; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .cf-right { display: flex; flex-direction: column; align-items: flex-end; }
+        .cf-logo { font-weight: 700; color: #f38020; font-size: 1rem; letter-spacing: -0.5px; }
+        .cf-links { font-size: 0.65rem; color: #666; display: flex; gap: 4px; }
+        
+        /* Кнопка Sign in */
+        .sign-in-btn { width: 100%; padding: 16px; background: #5a9cff; border: none; border-radius: 14px; color: #fff; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; margin-top: 5px; }
+        .sign-in-btn:hover { background: #4784e6; }
+        
+        .auth-footer-links { display: flex; justify-content: space-between; width: 100%; margin-top: 20px; font-size: 0.85rem; color: #aaa; }
+        .auth-footer-links span { cursor: pointer; transition: 0.2s; }
+        .auth-footer-links span:hover { color: #fff; }
+
+        /* Магазин */
         .products-section { flex-grow: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1200px; padding: 40px 20px; animation: floatUp 0.6s ease-out; }
         .products-header { text-align: center; margin-bottom: 40px; }
         .products-header h4 { font-size: 0.8rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
@@ -43,17 +74,12 @@
         .buy-btn { background: #5a9cff; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; }
         .buy-btn:hover { background: #4784e6; }
         
+        /* Профиль (Модальное окно сохранено для личного кабинета) */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; animation: fadeIn 0.3s ease; }
         .modal-content { background: rgba(20, 25, 35, 0.95); padding: 35px; border-radius: 16px; width: 380px; position: relative; border: 1px solid rgba(255,255,255,0.1); animation: floatUp 0.3s ease-out; }
         .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
         .close-btn:hover { color: #fff; }
         .modal-content h2 { text-align: center; margin-bottom: 25px; font-weight: 500; }
-        .input-group { margin-bottom: 15px; position: relative; }
-        .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; }
-        .modal-content input { width: 100%; padding: 14px 15px 14px 45px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 10px; outline: none; transition: 0.2s; }
-        .modal-content input:focus { border-color: #5a9cff; }
-        .action-btn { width: 100%; padding: 14px; margin-top: 10px; background: #5a9cff; border: none; border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .action-btn:hover { background: #4784e6; }
         .info-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
         
         .hidden { display: none !important; }
@@ -66,13 +92,15 @@
         <div class="nav-links">
             <span class="nav-item" onclick="showHero()"><i class="fa-solid fa-wand-magic-sparkles"></i> Advantages</span>
             <span class="nav-item" onclick="showProducts()"><i class="fa-solid fa-box-open"></i> Products</span>
+            <span class="nav-item" onclick="showHero()"><i class="fa-regular fa-eye"></i> Overview</span>
+            <span class="nav-item" onclick="showHero()"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</span>
         </div>
         <div class="nav-auth" id="guest-buttons">
-            <button onclick="openModal('login-modal')">Login</button>
-            <button onclick="openModal('register-modal')">Register</button>
+            <button onclick="showLogin()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</button>
+            <button onclick="showRegister()"><i class="fa-solid fa-user-plus"></i> Register</button>
         </div>
         <div class="nav-auth hidden" id="user-buttons">
-            <button onclick="openModal('profile-modal')" style="background: rgba(90, 156, 255, 0.2);">Мой профиль</button>
+            <button onclick="openModal('profile-modal')" style="background: rgba(90, 156, 255, 0.2);"><i class="fa-solid fa-user"></i> Мой профиль</button>
         </div>
     </nav>
 
@@ -94,25 +122,41 @@
         </div>
     </main>
 
-    <div id="login-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModals()">✕</button>
-            <h2>Вход</h2>
-            <div class="input-group"><i class="fa-solid fa-envelope"></i><input type="email" id="login-email" placeholder="Email"></div>
-            <div class="input-group"><i class="fa-solid fa-lock"></i><input type="password" id="login-password" placeholder="Пароль"></div>
-            <button class="action-btn" onclick="login()">Войти</button>
+    <main class="auth-section hidden" id="auth-section">
+        <div class="auth-logo">S</div>
+        <h2 class="auth-title">Welcome back to Horus</h2>
+        <p class="auth-subtitle">Sign in to your account to access your dashboard, manage your products and pick up right where you left off.</p>
+        
+        <div class="auth-form">
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="email" id="login-email" class="auth-input" placeholder="Login / Email">
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="login-password" class="auth-input" placeholder="Password">
+            </div>
+            
+            <div class="cloudflare-box">
+                <div class="cf-left">
+                    <div class="cf-spinner"></div>
+                    <span>Идет проверка...</span>
+                </div>
+                <div class="cf-right">
+                    <span class="cf-logo">CLOUDFLARE</span>
+                    <span class="cf-links">Конфиденциальность • Справка</span>
+                </div>
+            </div>
+
+            <button class="sign-in-btn" onclick="login()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign in</button>
         </div>
-    </div>
-    <div id="register-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeModals()">✕</button>
-            <h2>Регистрация</h2>
-            <div class="input-group"><i class="fa-solid fa-user"></i><input type="text" id="reg-nickname" placeholder="Никнейм"></div>
-            <div class="input-group"><i class="fa-solid fa-envelope"></i><input type="email" id="reg-email" placeholder="Email"></div>
-            <div class="input-group"><i class="fa-solid fa-lock"></i><input type="password" id="reg-password" placeholder="Пароль"></div>
-            <button class="action-btn" onclick="register()">Создать</button>
+
+        <div class="auth-footer-links">
+            <span onclick="alert('Восстановление пароля')">Forgot password?</span>
+            <span onclick="showRegisterSection()">Create account</span>
         </div>
-    </div>
+    </main>
+
     <div id="profile-modal" class="modal-overlay">
         <div class="modal-content" style="width: 420px;">
             <button class="close-btn" onclick="closeModals()">✕</button>
@@ -121,7 +165,7 @@
             <div class="info-row"><span style="color: #aaa;">Email:</span> <strong id="prof-email"></strong></div>
             <div class="info-row"><span style="color: #aaa;">HWID:</span> <strong id="prof-hwid"></strong></div>
             <div class="info-row"><span style="color: #aaa;">Подписка:</span> <strong id="prof-sub"></strong></div>
-            <button class="action-btn" style="background: rgba(255, 60, 60, 0.15); color: #ff5555; margin-top: 25px;" onclick="logout()">Выйти</button>
+            <button class="sign-in-btn" style="background: rgba(255, 60, 60, 0.15); color: #ff5555; margin-top: 25px;" onclick="logout()">Выйти</button>
         </div>
     </div>
 
@@ -130,77 +174,24 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdHB1ZG50dXh5eXBwbXZlbGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2MTM5MDQsImV4cCI6MjEwNDE4OTkwNH0.3V1iJ__rXqq0CNJ7_fqtqdMruHc0Bblel1FMCoqTY2k';
         
         let db;
-        try {
-            db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        } catch(e) {
-            console.error("Ошибка инициализации Supabase", e);
+        try { db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) {}
+
+        // Управление переключением экранов
+        function hideAllSections() {
+            document.getElementById('hero-section').classList.add('hidden');
+            document.getElementById('products-section').classList.add('hidden');
+            document.getElementById('auth-section').classList.add('hidden');
+            closeModals();
         }
 
-        function showProducts() {
-            document.getElementById('hero-section').classList.add('hidden');
-            document.getElementById('products-section').classList.remove('hidden');
-        }
         function showHero() {
-            document.getElementById('products-section').classList.add('hidden');
+            hideAllSections();
             document.getElementById('hero-section').classList.remove('hidden');
         }
-        function openModal(id) { 
-            closeModals(); 
-            document.getElementById(id).style.display = 'flex'; 
+        function showProducts() {
+            hideAllSections();
+            document.getElementById('products-section').classList.remove('hidden');
         }
-        function closeModals() { 
-            document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none'); 
-        }
-        function buyItem(name) { 
-            alert("Покупка: " + name); 
-        }
-
-        window.onload = async () => {
-            if(!db) return;
-            const { data: { session } } = await db.auth.getSession();
-            if (session) loadProfile(session.user.id);
-        };
-
-        async function register() {
-            const email = document.getElementById('reg-email').value;
-            const password = document.getElementById('reg-password').value;
-            const nickname = document.getElementById('reg-nickname').value;
-            if (!nickname) return alert("Введите ник");
-            
-            const { data, error } = await db.auth.signUp({ email, password });
-            if (error) return alert(error.message);
-            
-            await db.from('profiles').insert([{ id: data.user.id, email, nickname }]);
-            loadProfile(data.user.id);
-        }
-
-        async function login() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            
-            const { data, error } = await db.auth.signInWithPassword({ email, password });
-            if (error) alert(error.message); 
-            else loadProfile(data.user.id);
-        }
-
-        async function logout() {
-            await db.auth.signOut();
-            document.getElementById('guest-buttons').classList.remove('hidden');
-            document.getElementById('user-buttons').classList.add('hidden');
-            closeModals();
-        }
-
-        async function loadProfile(userId) {
-            const { data, error } = await db.from('profiles').select('*').eq('id', userId).single();
-            if (error) return;
-            document.getElementById('prof-nickname').innerText = data.nickname;
-            document.getElementById('prof-email').innerText = data.email;
-            document.getElementById('prof-hwid').innerText = data.hwid ? "Привязан" : "Не привязан";
-            document.getElementById('prof-sub').innerText = data.sub_expires_at ? new Date(data.sub_expires_at).toLocaleDateString() : "Нет";
-            document.getElementById('guest-buttons').classList.add('hidden');
-            document.getElementById('user-buttons').classList.remove('hidden');
-            closeModals();
-        }
-    </script>
-</body>
-</html>
+        function showLogin() {
+            hideAllSections();
+            document.getElementById('auth-section').classList.remove('
