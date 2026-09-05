@@ -1,5 +1,4 @@
-// НЕ ЗАБУДЬ ВСТАВИТЬ СВОИ КЛЮЧИ SUPABASE СЮДА
-const supabaseUrl = 'https://cltpudntuxyyppmvelhu.supabase.co/rest/v1/';
+const supabaseUrl = 'https://cltpudntuxyyppmvelhu.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdHB1ZG50dXh5eXBwbXZlbGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2MTM5MDQsImV4cCI6MjEwNDE4OTkwNH0.3V1iJ__rXqq0CNJ7_fqtqdMruHc0Bblel1FMCoqTY2k';
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
@@ -12,7 +11,7 @@ function closeModals() {
     document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none');
 }
 
-// Проверка сессии
+// Проверка сессии при загрузке
 window.onload = async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (session) loadProfile(session.user.id);
