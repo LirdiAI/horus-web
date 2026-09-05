@@ -10,71 +10,104 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         
         body { 
-    background: url('i.webp') no-repeat center center fixed; 
-    background-size: cover; 
-    background-color: #1a0033; /* Запасной темно-фиолетовый цвет */
-    color: #ffffff; 
-    min-height: 100vh; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-}
-
-        .navbar {
-            margin-top: 30px; width: 90%; max-width: 900px;
-            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
-            display: flex; justify-content: space-between; align-items: center; padding: 12px 25px;
+            background: url('i.webp') no-repeat center center fixed; 
+            background-size: cover; 
+            background-color: #1a0033;
+            color: #ffffff; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
         }
 
-        .nav-logo { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        /* Навигация */
+        .navbar {
+            margin-top: 30px; width: 90%; max-width: 900px;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
+            display: flex; justify-content: space-between; align-items: center; padding: 12px 25px;
+            z-index: 100;
+        }
+
+        .nav-logo { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .nav-logo-icon { color: #5a9cff; font-size: 1.3rem; font-style: italic; font-family: serif; }
 
         .nav-links { display: flex; gap: 25px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); }
-        .nav-links a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .nav-links a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+        .nav-links a:hover { color: #fff; }
         
         .nav-auth { display: flex; gap: 10px; }
         .nav-auth button { 
             background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff; cursor: pointer; font-size: 0.85rem; padding: 8px 16px; border-radius: 12px;
+            color: #fff; cursor: pointer; font-size: 0.85rem; padding: 8px 16px; border-radius: 12px; transition: 0.2s;
+        }
+        .nav-auth button:hover { background: rgba(255, 255, 255, 0.2); }
+
+        /* Главный экран */
+        .hero { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; width: 100%; }
+        .hero-logo-big { font-size: 4rem; color: #5a9cff; margin-bottom: 25px; font-style: italic; font-family: serif; }
+        .hero h1 { font-size: 3.2rem; margin-bottom: 20px; font-weight: 600; }
+        
+        /* Секция продуктов (Магазин) */
+        .products-section {
+            flex-grow: 1; display: flex; flex-direction: column; align-items: center; 
+            width: 100%; max-width: 1200px; padding: 40px 20px;
+        }
+        .products-header { text-align: center; margin-bottom: 40px; }
+        .products-header h4 { font-size: 0.8rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .products-header h2 { font-size: 2.5rem; font-weight: 600; margin-bottom: 15px; }
+        .products-header p { color: #aaa; font-size: 0.95rem; }
+
+        .products-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%;
         }
 
-        .hero { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; }
-        .hero-logo-big { font-size: 4rem; color: #5a9cff; margin-bottom: 25px; font-style: italic; font-family: serif; }
-        .hero h1 { font-size: 3.2rem; margin-bottom: 20px; }
-        
+        /* Карточка товара */
+        .product-card {
+            background: rgba(20, 25, 35, 0.6); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px;
+            padding: 25px; width: 270px; display: flex; flex-direction: column; text-align: left;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .product-card:hover { transform: translateY(-5px); border-color: rgba(90, 156, 255, 0.4); }
+        .product-icon { font-size: 2rem; color: #5a9cff; font-style: italic; font-family: serif; margin-bottom: 15px; }
+        .product-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; }
+        .product-desc { font-size: 0.85rem; color: #aaa; line-height: 1.4; flex-grow: 1; margin-bottom: 25px; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; }
+        .product-price { font-size: 1.2rem; font-weight: 700; }
+        .buy-btn { 
+            background: #5a9cff; color: #fff; border: none; padding: 8px 16px; 
+            border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; 
+        }
+        .buy-btn:hover { background: #4784e6; }
+
+        /* Модальные окна */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000;
         }
-        .modal-content {
-            background: rgba(20, 25, 35, 0.95); padding: 35px; border-radius: 16px; width: 380px; position: relative;
-        }
+        .modal-content { background: rgba(20, 25, 35, 0.95); padding: 35px; border-radius: 16px; width: 380px; position: relative; border: 1px solid rgba(255,255,255,0.1); }
         .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; }
-        .modal-content h2 { text-align: center; margin-bottom: 25px; font-weight: 500; font-size: 1.5rem; }
-        
+        .modal-content h2 { text-align: center; margin-bottom: 25px; font-weight: 500; }
         .input-group { margin-bottom: 15px; position: relative; }
         .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; }
-        .modal-content input { 
-            width: 100%; padding: 14px 15px 14px 45px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 10px;
-        }
-        
-        .action-btn { 
-            width: 100%; padding: 14px; margin-top: 10px; background: #5a9cff; border: none; border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer; 
-        }
-        
+        .modal-content input { width: 100%; padding: 14px 15px 14px 45px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 10px; outline: none; }
+        .action-btn { width: 100%; padding: 14px; margin-top: 10px; background: #5a9cff; border: none; border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer; }
         .info-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+        
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
+    <!-- Навигация -->
     <nav class="navbar">
-        <div class="nav-logo"><span class="nav-logo-icon">S</span> Horus</div>
+        <div class="nav-logo" onclick="showHero()"><span class="nav-logo-icon">S</span> Horus</div>
         
         <div class="nav-links">
-            <a href="#"><i class="fa-solid fa-wand-magic-sparkles"></i> Advantages</a>
-            <a href="#"><i class="fa-solid fa-box-open"></i> Products</a>
+            <a href="#" onclick="showHero()"><i class="fa-solid fa-wand-magic-sparkles"></i> Advantages</a>
+            <!-- Кнопка Products теперь открывает магазин -->
+            <a href="#" onclick="showProducts()"><i class="fa-solid fa-box-open"></i> Products</a>
         </div>
         
         <div class="nav-auth" id="guest-buttons">
@@ -87,11 +120,79 @@
         </div>
     </nav>
 
-    <main class="hero">
+    <!-- Главный экран -->
+    <main class="hero" id="hero-section">
         <div class="hero-logo-big">S</div>
         <h1>Открой новые возможности</h1>
     </main>
 
+    <!-- Экран Магазина (скрыт по умолчанию) -->
+    <main class="products-section hidden" id="products-section">
+        <div class="products-header">
+            <h4>Магазин</h4>
+            <h2>Продукты</h2>
+            <p>Выбери подписку под себя — от месячного теста до доступа навсегда.</p>
+        </div>
+        
+        <div class="products-grid">
+            <!-- 30 дней -->
+            <div class="product-card">
+                <div class="product-icon">S</div>
+                <div class="product-title">30 дней</div>
+                <div class="product-desc">Идеальный старт — проверь обходы в реальном бою. Полный доступ ко всем функциям.</div>
+                <div class="product-footer">
+                    <span class="product-price">400 ₽</span>
+                    <button class="buy-btn" onclick="buyItem('30 дней')"><i class="fa-solid fa-cart-shopping"></i> Купить</button>
+                </div>
+            </div>
+
+            <!-- 90 дней -->
+            <div class="product-card">
+                <div class="product-icon">S</div>
+                <div class="product-title">90 дней</div>
+                <div class="product-desc">Больше времени — больше побед. Выгоднее по цене. Приоритетные обновления.</div>
+                <div class="product-footer">
+                    <span class="product-price">550 ₽</span>
+                    <button class="buy-btn" onclick="buyItem('90 дней')"><i class="fa-solid fa-cart-shopping"></i> Купить</button>
+                </div>
+            </div>
+
+            <!-- Навсегда -->
+            <div class="product-card">
+                <div class="product-icon">S</div>
+                <div class="product-title">Навсегда</div>
+                <div class="product-desc">Полный доступ ко всем функциям и будущим обновлениям.</div>
+                <div class="product-footer">
+                    <span class="product-price">700 ₽</span>
+                    <button class="buy-btn" onclick="buyItem('Навсегда')"><i class="fa-solid fa-cart-shopping"></i> Купить</button>
+                </div>
+            </div>
+
+            <!-- Сброс HWID -->
+            <div class="product-card">
+                <div class="product-icon">S</div>
+                <div class="product-title">Сброс HWID</div>
+                <div class="product-desc">Отвязка оборудования при смене или переустановке ПК. Мгновенно после оплаты.</div>
+                <div class="product-footer">
+                    <span class="product-price">259 ₽</span>
+                    <button class="buy-btn" onclick="buyItem('Сброс HWID')"><i class="fa-solid fa-cart-shopping"></i> Купить</button>
+                </div>
+            </div>
+
+            <!-- BETA Подписка -->
+            <div class="product-card">
+                <div class="product-icon">S</div>
+                <div class="product-title">BETA Подписка</div>
+                <div class="product-desc">Отдельный доступ к BETA-сборкам и новым функциям до их основного релиза.</div>
+                <div class="product-footer">
+                    <span class="product-price">400 ₽</span>
+                    <button class="buy-btn" onclick="buyItem('BETA Подписка')"><i class="fa-solid fa-cart-shopping"></i> Купить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальные окна остаются теми же -->
     <div id="login-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModals()">✕</button>
@@ -117,12 +218,10 @@
         <div class="modal-content" style="width: 420px;">
             <button class="close-btn" onclick="closeModals()">✕</button>
             <h2>Мой профиль</h2>
-            
             <div class="info-row"><span style="color: #aaa;">Ник:</span> <strong id="prof-nickname"></strong></div>
             <div class="info-row"><span style="color: #aaa;">Email:</span> <strong id="prof-email"></strong></div>
             <div class="info-row"><span style="color: #aaa;">HWID:</span> <strong id="prof-hwid"></strong></div>
             <div class="info-row"><span style="color: #aaa;">Подписка:</span> <strong id="prof-sub"></strong></div>
-            
             <button class="action-btn" style="background: rgba(255, 60, 60, 0.15); color: #ff5555; margin-top: 25px;" onclick="logout()">Выйти</button>
         </div>
     </div>
@@ -134,18 +233,21 @@
         let supabase;
         try {
             supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-            console.log("Supabase подключен успешно");
-        } catch(e) {
-            console.error("Ошибка подключения Supabase:", e);
+        } catch(e) { console.error("Ошибка Supabase:", e); }
+
+        // Переключение между Главной и Магазином
+        function showProducts() {
+            document.getElementById('hero-section').classList.add('hidden');
+            document.getElementById('products-section').classList.remove('hidden');
+        }
+        function showHero() {
+            document.getElementById('products-section').classList.add('hidden');
+            document.getElementById('hero-section').classList.remove('hidden');
         }
 
-        function openModal(id) {
-            closeModals();
-            document.getElementById(id).style.display = 'flex';
-        }
-        function closeModals() {
-            document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none');
-        }
+        // Управление окнами
+        function openModal(id) { closeModals(); document.getElementById(id).style.display = 'flex'; }
+        function closeModals() { document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none'); }
 
         window.onload = async () => {
             if(!supabase) return;
@@ -153,28 +255,25 @@
             if (session) loadProfile(session.user.id);
         };
 
+        // Заглушка для покупки
+        function buyItem(itemName) {
+            alert("Перенаправление на оплату: " + itemName);
+        }
+
+        // Авторизация
         async function register() {
-            const email = document.getElementById('reg-email').value;
-            const password = document.getElementById('reg-password').value;
-            const nickname = document.getElementById('reg-nickname').value;
-
+            const email = document.getElementById('reg-email').value, password = document.getElementById('reg-password').value, nickname = document.getElementById('reg-nickname').value;
             if (!nickname) return alert("Введите никнейм!");
-
             const { data, error } = await supabase.auth.signUp({ email, password });
             if (error) return alert(error.message);
-
-            const { error: profileError } = await supabase.from('profiles').insert([{ id: data.user.id, email: email, nickname: nickname }]);
-            if (profileError) alert("Ошибка профиля: " + profileError.message);
-            else { alert("Успешно!"); loadProfile(data.user.id); }
+            const { error: pErr } = await supabase.from('profiles').insert([{ id: data.user.id, email, nickname }]);
+            if (pErr) alert("Ошибка: " + pErr.message); else { alert("Успешно!"); loadProfile(data.user.id); }
         }
 
         async function login() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
+            const email = document.getElementById('login-email').value, password = document.getElementById('login-password').value;
             const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) alert(error.message);
-            else loadProfile(data.user.id);
+            if (error) alert(error.message); else loadProfile(data.user.id);
         }
 
         async function logout() {
@@ -186,13 +285,11 @@
 
         async function loadProfile(userId) {
             const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
-            if (error) return console.error(error);
-
+            if (error) return;
             document.getElementById('prof-nickname').innerText = data.nickname;
             document.getElementById('prof-email').innerText = data.email;
             document.getElementById('prof-hwid').innerText = data.hwid ? "Привязан" : "Не привязан";
             document.getElementById('prof-sub').innerText = data.sub_expires_at ? new Date(data.sub_expires_at).toLocaleDateString() : "Нет";
-
             document.getElementById('guest-buttons').classList.add('hidden');
             document.getElementById('user-buttons').classList.remove('hidden');
             closeModals();
