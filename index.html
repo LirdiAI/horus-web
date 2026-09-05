@@ -3,57 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horus — Панель управления</title>
+    <title>Horus</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background: #121212; color: #ffffff; }
-        .container { max-width: 600px; margin: auto; background: #1e1e1e; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        h1, h2, h3 { color: #bb86fc; text-align: center; }
-        .hidden { display: none; }
-        .card { border: 1px solid #333; padding: 15px; margin-top: 15px; border-radius: 8px; background: #252525; text-align: center; }
-        button { padding: 12px 20px; cursor: pointer; background: #bb86fc; color: #121212; border: none; border-radius: 6px; font-weight: bold; width: 100%; margin-top: 10px; }
-        button:hover { background: #9965f4; }
-        input { padding: 12px; margin: 8px 0; width: 95%; background: #333; border: 1px solid #555; color: white; border-radius: 6px; }
+        /* Базовые стили и фон */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body {
+            background: linear-gradient(rgba(10, 15, 30, 0.7), rgba(10, 15, 30, 0.9)), url('https://images.unsplash.com/photo-1607513746994-51f730a44832?q=80&w=2000&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Плавающее меню */
+        .navbar {
+            margin-top: 20px;
+            width: 80%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .nav-logo { font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+        .nav-logo span { color: #5a9cff; font-size: 1.5rem; }
+        .nav-links { display: flex; gap: 20px; font-size: 0.9rem; color: #aaa; }
+        .nav-links a { color: inherit; text-decoration: none; transition: 0.3s; }
+        .nav-links a:hover { color: #fff; }
+        .nav-auth { display: flex; gap: 15px; }
+        .nav-auth button { background: transparent; border: none; color: #fff; cursor: pointer; font-size: 0.9rem; transition: 0.3s; display: flex; align-items: center; gap: 5px; }
+        .nav-auth button:hover { color: #5a9cff; }
+
+        /* Главный экран (Hero) */
+        .hero {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-width: 700px;
+            padding: 20px;
+        }
+        .hero-icon { font-size: 3rem; color: #5a9cff; margin-bottom: 20px; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; font-weight: 600; }
+        .hero p { font-size: 1rem; color: #ccc; line-height: 1.6; }
+
+        /* Всплывающие окна (Модалки) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: #1e1e1e; padding: 30px; border-radius: 12px; width: 350px;
+            border: 1px solid #333; box-shadow: 0 4px 15px rgba(0,0,0,0.5); position: relative;
+        }
+        .close-btn { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #888; font-size: 1.2rem; cursor: pointer; }
+        .modal-content h2 { text-align: center; margin-bottom: 20px; color: #5a9cff; }
+        .modal-content input { width: 100%; padding: 12px; margin: 8px 0; background: #2a2a2a; border: 1px solid #444; color: white; border-radius: 6px; }
+        .modal-content button.action-btn { width: 100%; padding: 12px; margin-top: 15px; background: #5a9cff; border: none; border-radius: 6px; color: #fff; font-weight: bold; cursor: pointer; }
+
+        /* Профиль */
         .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #333; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Project Horus</h1>
-
-    <!-- Секция Авторизации -->
-    <div id="auth-section">
-        <h2>Вход в систему</h2>
-        <input type="email" id="email" placeholder="Email (привязывается навсегда)">
-        <input type="password" id="password" placeholder="Пароль">
-        <input type="text" id="nickname" placeholder="Никнейм (только для регистрации)">
-        <button onclick="login()">Войти</button>
-        <button style="background: #333; color: white;" onclick="register()">Зарегистрироваться</button>
+<!-- Плавающее меню -->
+<nav class="navbar">
+    <div class="nav-logo"><span>⚡</span> Horus</div>
+    <div class="nav-links">
+        <a href="#">Advantages</a>
+        <a href="#">Products</a>
+        <a href="#">Overview</a>
     </div>
+    <div class="nav-auth" id="guest-buttons">
+        <button onclick="openModal('login-modal')">→ Login</button>
+        <button onclick="openModal('register-modal')">👤 Register</button>
+    </div>
+    <div class="nav-auth hidden" id="user-buttons">
+        <button onclick="openModal('profile-modal')" style="color: #5a9cff;">Мой профиль</button>
+    </div>
+</nav>
 
-    <!-- Секция Профиля -->
-    <div id="profile-section" class="hidden">
+<!-- Главный экран -->
+<main class="hero">
+    <div class="hero-icon">⚡</div>
+    <h1>Открой новые возможности</h1>
+    <p>Horus — твой главный инструмент для достижения вершин. Мы объединили эстетику минимализма с максимальной производительностью, чтобы ничто не отвлекало тебя от победы.</p>
+</main>
+
+<!-- Окно Входа -->
+<div id="login-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModals()">✕</button>
+        <h2>Вход</h2>
+        <input type="email" id="login-email" placeholder="Email">
+        <input type="password" id="login-password" placeholder="Пароль">
+        <button class="action-btn" onclick="login()">Войти</button>
+    </div>
+</div>
+
+<!-- Окно Регистрации -->
+<div id="register-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModals()">✕</button>
+        <h2>Регистрация</h2>
+        <input type="text" id="reg-nickname" placeholder="Никнейм (навсегда)">
+        <input type="email" id="reg-email" placeholder="Email (навсегда)">
+        <input type="password" id="reg-password" placeholder="Пароль">
+        <button class="action-btn" onclick="register()">Создать аккаунт</button>
+    </div>
+</div>
+
+<!-- Окно Профиля (Магазина) -->
+<div id="profile-modal" class="modal-overlay">
+    <div class="modal-content" style="width: 400px;">
+        <button class="close-btn" onclick="closeModals()">✕</button>
         <h2>Мой профиль</h2>
-        <div class="info-row"><span>Никнейм:</span> <strong id="prof-nickname"></strong></div>
+        <div class="info-row"><span>Ник:</span> <strong id="prof-nickname"></strong></div>
         <div class="info-row"><span>Email:</span> <strong id="prof-email"></strong></div>
         <div class="info-row"><span>HWID:</span> <strong id="prof-hwid"></strong></div>
-        <div class="info-row"><span>Статус подписки:</span> <strong id="prof-sub"></strong></div>
-        <button style="background: #cf6679; color: white;" onclick="logout()">Выйти</button>
+        <div class="info-row"><span>Подписка:</span> <strong id="prof-sub"></strong></div>
 
-        <h3>Приобрести подписку</h3>
-        <div class="card">
-            <h4>Horus - 30 дней</h4>
-            <button onclick="buySub(30)">Купить</button>
-        </div>
-        <div class="card">
-            <h4>Horus - 90 дней</h4>
-            <button onclick="buySub(90)">Купить</button>
-        </div>
-        <div class="card">
-            <h4>Horus - Навсегда</h4>
-            <button onclick="buySub(9999)">Купить (Lifetime)</button>
-        </div>
+        <h3 style="text-align: center; margin: 20px 0 10px; color: #aaa; font-size: 1rem;">Магазин</h3>
+        <button class="action-btn" style="background: #333;" onclick="buySub(30)">30 дней</button>
+        <button class="action-btn" style="background: #333;" onclick="buySub(90)">90 дней</button>
+        <button class="action-btn" style="background: #333;" onclick="buySub(9999)">Навсегда</button>
+
+        <button class="action-btn" style="background: #cf6679; margin-top: 20px;" onclick="logout()">Выйти из аккаунта</button>
     </div>
 </div>
 
