@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horus — Панель управления</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background: #121212; color: #ffffff; }
+        .container { max-width: 600px; margin: auto; background: #1e1e1e; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h1, h2, h3 { color: #bb86fc; text-align: center; }
+        .hidden { display: none; }
+        .card { border: 1px solid #333; padding: 15px; margin-top: 15px; border-radius: 8px; background: #252525; text-align: center; }
+        button { padding: 12px 20px; cursor: pointer; background: #bb86fc; color: #121212; border: none; border-radius: 6px; font-weight: bold; width: 100%; margin-top: 10px; }
+        button:hover { background: #9965f4; }
+        input { padding: 12px; margin: 8px 0; width: 95%; background: #333; border: 1px solid #555; color: white; border-radius: 6px; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid #333; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Project Horus</h1>
+
+    <!-- Секция Авторизации -->
+    <div id="auth-section">
+        <h2>Вход в систему</h2>
+        <input type="email" id="email" placeholder="Email (привязывается навсегда)">
+        <input type="password" id="password" placeholder="Пароль">
+        <input type="text" id="nickname" placeholder="Никнейм (только для регистрации)">
+        <button onclick="login()">Войти</button>
+        <button style="background: #333; color: white;" onclick="register()">Зарегистрироваться</button>
+    </div>
+
+    <!-- Секция Профиля -->
+    <div id="profile-section" class="hidden">
+        <h2>Мой профиль</h2>
+        <div class="info-row"><span>Никнейм:</span> <strong id="prof-nickname"></strong></div>
+        <div class="info-row"><span>Email:</span> <strong id="prof-email"></strong></div>
+        <div class="info-row"><span>HWID:</span> <strong id="prof-hwid"></strong></div>
+        <div class="info-row"><span>Статус подписки:</span> <strong id="prof-sub"></strong></div>
+        <button style="background: #cf6679; color: white;" onclick="logout()">Выйти</button>
+
+        <h3>Приобрести подписку</h3>
+        <div class="card">
+            <h4>Horus - 30 дней</h4>
+            <button onclick="buySub(30)">Купить</button>
+        </div>
+        <div class="card">
+            <h4>Horus - 90 дней</h4>
+            <button onclick="buySub(90)">Купить</button>
+        </div>
+        <div class="card">
+            <h4>Horus - Навсегда</h4>
+            <button onclick="buySub(9999)">Купить (Lifetime)</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
