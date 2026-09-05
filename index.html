@@ -10,19 +10,10 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background: url('i.webp') no-repeat center center fixed; background-size: cover; background-color: #1a0033; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
         
-        /* Плавные анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes floatUp {
-            from { opacity: 0; transform: translateY(20px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes floatUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        /* Навигация */
         .navbar { position: relative; z-index: 999; margin-top: 30px; width: 90%; max-width: 900px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; animation: fadeIn 0.8s ease; }
-        
         .nav-logo { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .nav-logo-icon { color: #5a9cff; font-size: 1.3rem; font-style: italic; font-family: serif; }
         .nav-links { display: flex; gap: 25px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); }
@@ -32,14 +23,10 @@
         .nav-auth button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; font-size: 0.85rem; padding: 8px 16px; border-radius: 12px; transition: 0.2s; }
         .nav-auth button:hover { background: rgba(255, 255, 255, 0.2); }
         
-        /* Главный экран */
-        .hero { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; width: 100%; pointer-events: none; animation: floatUp 0.6s ease-out; }
-        .hero > * { pointer-events: auto; }
-        
+        .hero { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; width: 100%; animation: floatUp 0.6s ease-out; }
         .hero-logo-big { font-size: 4rem; color: #5a9cff; margin-bottom: 25px; font-style: italic; font-family: serif; }
         .hero h1 { font-size: 3.2rem; margin-bottom: 20px; font-weight: 600; }
         
-        /* Магазин */
         .products-section { flex-grow: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1200px; padding: 40px 20px; animation: floatUp 0.6s ease-out; }
         .products-header { text-align: center; margin-bottom: 40px; }
         .products-header h4 { font-size: 0.8rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
@@ -56,7 +43,6 @@
         .buy-btn { background: #5a9cff; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; }
         .buy-btn:hover { background: #4784e6; }
         
-        /* Модальные окна */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; animation: fadeIn 0.3s ease; }
         .modal-content { background: rgba(20, 25, 35, 0.95); padding: 35px; border-radius: 16px; width: 380px; position: relative; border: 1px solid rgba(255,255,255,0.1); animation: floatUp 0.3s ease-out; }
         .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
@@ -108,7 +94,6 @@
         </div>
     </main>
 
-    <!-- Модальные окна -->
     <div id="login-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModals()">✕</button>
@@ -141,10 +126,15 @@
     </div>
 
     <script>
-        const supabaseUrl = 'https://cltpudntuxyyppmvelhu.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdHB1ZG50dXh5eXBwbXZlbGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2MTM5MDQsImV4cCI6MjEwNDE4OTkwNH0.3V1iJ__rXqq0CNJ7_fqtqdMruHc0Bblel1FMCoqTY2k';
-        let supabase;
-        try { supabase = window.supabase.createClient(supabaseUrl, supabaseKey); } catch(e) {}
+        const SUPABASE_URL = 'https://cltpudntuxyyppmvelhu.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdHB1ZG50dXh5eXBwbXZlbGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2MTM5MDQsImV4cCI6MjEwNDE4OTkwNH0.3V1iJ__rXqq0CNJ7_fqtqdMruHc0Bblel1FMCoqTY2k';
+        
+        let db;
+        try {
+            db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch(e) {
+            console.error("Ошибка инициализации Supabase", e);
+        }
 
         function showProducts() {
             document.getElementById('hero-section').classList.add('hidden');
@@ -154,36 +144,54 @@
             document.getElementById('products-section').classList.add('hidden');
             document.getElementById('hero-section').classList.remove('hidden');
         }
-        function openModal(id) { closeModals(); document.getElementById(id).style.display = 'flex'; }
-        function closeModals() { document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none'); }
-        function buyItem(name) { alert("Покупка: " + name); }
+        function openModal(id) { 
+            closeModals(); 
+            document.getElementById(id).style.display = 'flex'; 
+        }
+        function closeModals() { 
+            document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none'); 
+        }
+        function buyItem(name) { 
+            alert("Покупка: " + name); 
+        }
 
         window.onload = async () => {
-            if(!supabase) return;
-            const { data: { session } } = await supabase.auth.getSession();
+            if(!db) return;
+            const { data: { session } } = await db.auth.getSession();
             if (session) loadProfile(session.user.id);
         };
+
         async function register() {
-            const email = document.getElementById('reg-email').value, password = document.getElementById('reg-password').value, nickname = document.getElementById('reg-nickname').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const nickname = document.getElementById('reg-nickname').value;
             if (!nickname) return alert("Введите ник");
-            const { data, error } = await supabase.auth.signUp({ email, password });
+            
+            const { data, error } = await db.auth.signUp({ email, password });
             if (error) return alert(error.message);
-            await supabase.from('profiles').insert([{ id: data.user.id, email, nickname }]);
+            
+            await db.from('profiles').insert([{ id: data.user.id, email, nickname }]);
             loadProfile(data.user.id);
         }
+
         async function login() {
-            const email = document.getElementById('login-email').value, password = document.getElementById('login-password').value;
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) alert(error.message); else loadProfile(data.user.id);
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            const { data, error } = await db.auth.signInWithPassword({ email, password });
+            if (error) alert(error.message); 
+            else loadProfile(data.user.id);
         }
+
         async function logout() {
-            await supabase.auth.signOut();
+            await db.auth.signOut();
             document.getElementById('guest-buttons').classList.remove('hidden');
             document.getElementById('user-buttons').classList.add('hidden');
             closeModals();
         }
+
         async function loadProfile(userId) {
-            const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
+            const { data, error } = await db.from('profiles').select('*').eq('id', userId).single();
             if (error) return;
             document.getElementById('prof-nickname').innerText = data.nickname;
             document.getElementById('prof-email').innerText = data.email;
