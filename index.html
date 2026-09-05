@@ -10,8 +10,18 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background: url('i.webp') no-repeat center center fixed; background-size: cover; background-color: #1a0033; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
         
-        /* ИСПРАВЛЕНИЕ ЗДЕСЬ: добавлено position: relative и z-index: 999 */
-        .navbar { position: relative; z-index: 999; margin-top: 30px; width: 90%; max-width: 900px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; }
+        /* Плавные анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Навигация */
+        .navbar { position: relative; z-index: 999; margin-top: 30px; width: 90%; max-width: 900px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; animation: fadeIn 0.8s ease; }
         
         .nav-logo { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .nav-logo-icon { color: #5a9cff; font-size: 1.3rem; font-style: italic; font-family: serif; }
@@ -22,14 +32,15 @@
         .nav-auth button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; font-size: 0.85rem; padding: 8px 16px; border-radius: 12px; transition: 0.2s; }
         .nav-auth button:hover { background: rgba(255, 255, 255, 0.2); }
         
-        /* ИСПРАВЛЕНИЕ ЗДЕСЬ: добавлено position: relative и z-index: 1 */
-        .hero { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; width: 100%; pointer-events: none; }
+        /* Главный экран */
+        .hero { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; width: 100%; pointer-events: none; animation: floatUp 0.6s ease-out; }
         .hero > * { pointer-events: auto; }
         
         .hero-logo-big { font-size: 4rem; color: #5a9cff; margin-bottom: 25px; font-style: italic; font-family: serif; }
         .hero h1 { font-size: 3.2rem; margin-bottom: 20px; font-weight: 600; }
         
-        .products-section { flex-grow: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1200px; padding: 40px 20px; }
+        /* Магазин */
+        .products-section { flex-grow: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1200px; padding: 40px 20px; animation: floatUp 0.6s ease-out; }
         .products-header { text-align: center; margin-bottom: 40px; }
         .products-header h4 { font-size: 0.8rem; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
         .products-header h2 { font-size: 2.5rem; font-weight: 600; margin-bottom: 15px; }
@@ -45,15 +56,20 @@
         .buy-btn { background: #5a9cff; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; }
         .buy-btn:hover { background: #4784e6; }
         
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: rgba(20, 25, 35, 0.95); padding: 35px; border-radius: 16px; width: 380px; position: relative; border: 1px solid rgba(255,255,255,0.1); }
-        .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; }
+        /* Модальные окна */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; animation: fadeIn 0.3s ease; }
+        .modal-content { background: rgba(20, 25, 35, 0.95); padding: 35px; border-radius: 16px; width: 380px; position: relative; border: 1px solid rgba(255,255,255,0.1); animation: floatUp 0.3s ease-out; }
+        .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer; transition: 0.2s; }
+        .close-btn:hover { color: #fff; }
         .modal-content h2 { text-align: center; margin-bottom: 25px; font-weight: 500; }
         .input-group { margin-bottom: 15px; position: relative; }
         .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888; }
-        .modal-content input { width: 100%; padding: 14px 15px 14px 45px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 10px; outline: none; }
-        .action-btn { width: 100%; padding: 14px; margin-top: 10px; background: #5a9cff; border: none; border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer; }
+        .modal-content input { width: 100%; padding: 14px 15px 14px 45px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 10px; outline: none; transition: 0.2s; }
+        .modal-content input:focus { border-color: #5a9cff; }
+        .action-btn { width: 100%; padding: 14px; margin-top: 10px; background: #5a9cff; border: none; border-radius: 10px; color: #fff; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .action-btn:hover { background: #4784e6; }
         .info-row { display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
+        
         .hidden { display: none !important; }
     </style>
 </head>
