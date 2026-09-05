@@ -9,7 +9,10 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background: url('i.webp') no-repeat center center fixed; background-size: cover; background-color: #1a0033; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
-        .navbar { margin-top: 30px; width: 90%; max-width: 900px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; z-index: 100; }
+        
+        /* ИСПРАВЛЕНИЕ ЗДЕСЬ: добавлено position: relative и z-index: 999 */
+        .navbar { position: relative; z-index: 999; margin-top: 30px; width: 90%; max-width: 900px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; }
+        
         .nav-logo { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .nav-logo-icon { color: #5a9cff; font-size: 1.3rem; font-style: italic; font-family: serif; }
         .nav-links { display: flex; gap: 25px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); }
@@ -19,7 +22,10 @@
         .nav-auth button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; cursor: pointer; font-size: 0.85rem; padding: 8px 16px; border-radius: 12px; transition: 0.2s; }
         .nav-auth button:hover { background: rgba(255, 255, 255, 0.2); }
         
-        .hero { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; width: 100%; }
+        /* ИСПРАВЛЕНИЕ ЗДЕСЬ: добавлено position: relative и z-index: 1 */
+        .hero { position: relative; z-index: 1; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: -50px; width: 100%; pointer-events: none; }
+        .hero > * { pointer-events: auto; }
+        
         .hero-logo-big { font-size: 4rem; color: #5a9cff; margin-bottom: 25px; font-style: italic; font-family: serif; }
         .hero h1 { font-size: 3.2rem; margin-bottom: 20px; font-weight: 600; }
         
@@ -37,6 +43,7 @@
         .product-footer { display: flex; justify-content: space-between; align-items: center; }
         .product-price { font-size: 1.2rem; font-weight: 700; }
         .buy-btn { background: #5a9cff; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; }
+        .buy-btn:hover { background: #4784e6; }
         
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: rgba(20, 25, 35, 0.95); padding: 35px; border-radius: 16px; width: 380px; position: relative; border: 1px solid rgba(255,255,255,0.1); }
@@ -81,10 +88,48 @@
             <div class="product-card"><div class="product-icon">S</div><div class="product-title">30 дней</div><div class="product-desc">Идеальный старт — проверь обходы в реальном бою.</div><div class="product-footer"><span class="product-price">400 ₽</span><button class="buy-btn" onclick="buyItem('30 дней')">Купить</button></div></div>
             <div class="product-card"><div class="product-icon">S</div><div class="product-title">90 дней</div><div class="product-desc">Больше времени — больше побед. Выгоднее по цене.</div><div class="product-footer"><span class="product-price">550 ₽</span><button class="buy-btn" onclick="buyItem('90 дней')">Купить</button></div></div>
             <div class="product-card"><div class="product-icon">S</div><div class="product-title">Навсегда</div><div class="product-desc">Полный доступ ко всем функциям и будущим обновлениям.</div><div class="product-footer"><span class="product-price">700 ₽</span><button class="buy-btn" onclick="buyItem('Навсегда')">Купить</button></div></div>
+            <div class="product-card"><div class="product-icon">S</div><div class="product-title">Сброс HWID</div><div class="product-desc">Отвязка оборудования при смене или переустановке ПК.</div><div class="product-footer"><span class="product-price">259 ₽</span><button class="buy-btn" onclick="buyItem('Сброс HWID')">Купить</button></div></div>
         </div>
     </main>
 
+    <!-- Модальные окна -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModals()">✕</button>
+            <h2>Вход</h2>
+            <div class="input-group"><i class="fa-solid fa-envelope"></i><input type="email" id="login-email" placeholder="Email"></div>
+            <div class="input-group"><i class="fa-solid fa-lock"></i><input type="password" id="login-password" placeholder="Пароль"></div>
+            <button class="action-btn" onclick="login()">Войти</button>
+        </div>
+    </div>
+    <div id="register-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModals()">✕</button>
+            <h2>Регистрация</h2>
+            <div class="input-group"><i class="fa-solid fa-user"></i><input type="text" id="reg-nickname" placeholder="Никнейм"></div>
+            <div class="input-group"><i class="fa-solid fa-envelope"></i><input type="email" id="reg-email" placeholder="Email"></div>
+            <div class="input-group"><i class="fa-solid fa-lock"></i><input type="password" id="reg-password" placeholder="Пароль"></div>
+            <button class="action-btn" onclick="register()">Создать</button>
+        </div>
+    </div>
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-content" style="width: 420px;">
+            <button class="close-btn" onclick="closeModals()">✕</button>
+            <h2>Мой профиль</h2>
+            <div class="info-row"><span style="color: #aaa;">Ник:</span> <strong id="prof-nickname"></strong></div>
+            <div class="info-row"><span style="color: #aaa;">Email:</span> <strong id="prof-email"></strong></div>
+            <div class="info-row"><span style="color: #aaa;">HWID:</span> <strong id="prof-hwid"></strong></div>
+            <div class="info-row"><span style="color: #aaa;">Подписка:</span> <strong id="prof-sub"></strong></div>
+            <button class="action-btn" style="background: rgba(255, 60, 60, 0.15); color: #ff5555; margin-top: 25px;" onclick="logout()">Выйти</button>
+        </div>
+    </div>
+
     <script>
+        const supabaseUrl = 'https://cltpudntuxyyppmvelhu.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNsdHB1ZG50dXh5eXBwbXZlbGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg2MTM5MDQsImV4cCI6MjEwNDE4OTkwNH0.3V1iJ__rXqq0CNJ7_fqtqdMruHc0Bblel1FMCoqTY2k';
+        let supabase;
+        try { supabase = window.supabase.createClient(supabaseUrl, supabaseKey); } catch(e) {}
+
         function showProducts() {
             document.getElementById('hero-section').classList.add('hidden');
             document.getElementById('products-section').classList.remove('hidden');
@@ -93,9 +138,45 @@
             document.getElementById('products-section').classList.add('hidden');
             document.getElementById('hero-section').classList.remove('hidden');
         }
-        function openModal(id) { document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none'); document.getElementById(id).style.display = 'flex'; }
+        function openModal(id) { closeModals(); document.getElementById(id).style.display = 'flex'; }
         function closeModals() { document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none'); }
         function buyItem(name) { alert("Покупка: " + name); }
+
+        window.onload = async () => {
+            if(!supabase) return;
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) loadProfile(session.user.id);
+        };
+        async function register() {
+            const email = document.getElementById('reg-email').value, password = document.getElementById('reg-password').value, nickname = document.getElementById('reg-nickname').value;
+            if (!nickname) return alert("Введите ник");
+            const { data, error } = await supabase.auth.signUp({ email, password });
+            if (error) return alert(error.message);
+            await supabase.from('profiles').insert([{ id: data.user.id, email, nickname }]);
+            loadProfile(data.user.id);
+        }
+        async function login() {
+            const email = document.getElementById('login-email').value, password = document.getElementById('login-password').value;
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) alert(error.message); else loadProfile(data.user.id);
+        }
+        async function logout() {
+            await supabase.auth.signOut();
+            document.getElementById('guest-buttons').classList.remove('hidden');
+            document.getElementById('user-buttons').classList.add('hidden');
+            closeModals();
+        }
+        async function loadProfile(userId) {
+            const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
+            if (error) return;
+            document.getElementById('prof-nickname').innerText = data.nickname;
+            document.getElementById('prof-email').innerText = data.email;
+            document.getElementById('prof-hwid').innerText = data.hwid ? "Привязан" : "Не привязан";
+            document.getElementById('prof-sub').innerText = data.sub_expires_at ? new Date(data.sub_expires_at).toLocaleDateString() : "Нет";
+            document.getElementById('guest-buttons').classList.add('hidden');
+            document.getElementById('user-buttons').classList.remove('hidden');
+            closeModals();
+        }
     </script>
 </body>
 </html>
